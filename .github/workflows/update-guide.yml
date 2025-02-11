@@ -1,0 +1,43 @@
+name: Update Guide
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  update-guide:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Grab data from tv.cctv.com
+        run: npm run grab --- --site=tv.cctv.com
+
+      - name: Grab data from programme.tvb.com
+        run: npm run grab --- --site=programme.tvb.com --lang=zh
+
+      - name: Grab channels data
+        run: npm run grab --- --channels=channels.xml
+
+      - name: Commit and push changes
+        run: |
+          git add guide.xml
+          git commit -m 'Update guide.xml'
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
