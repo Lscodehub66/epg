@@ -26,14 +26,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Grab data from tv.cctv.com
-        run: npm run grab --- --site=tv.cctv.com
-
-      - name: Grab data from programme.tvb.com
-        run: npm run grab --- --site=programme.tvb.com --lang=zh
-
-      - name: Grab channels data
-        run: npm run grab --- --channels=channels.xml
+      - name: Grab data from SITES and channels
+        run: |
+          npm run grab --- --site=tv.cctv.com
+          npm run grab --- --site=programme.tvb.com --lang=zh
+          npm run grab --- --channels=user_channels.xml
 
       - name: Commit and push changes
         run: |
