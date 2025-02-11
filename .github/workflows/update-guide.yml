@@ -18,8 +18,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - uses: actions/setup-node@v3
+        if: ${{ !env.ACT }}
         with:
-          node-version: "14"
+          node-version: "22"
           cache: "npm"
 
       - name: Install dependencies
