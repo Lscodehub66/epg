@@ -1,7 +1,11 @@
 /node_modules/
 /temp/
 /channels.xml
-/guide.xml
+# Ignore guide.xml in all subdirectories
+**/guide.xml
+
+# Unignore guide.xml in the root directory
+!/guide.xml
 /guide.xml.gz
 
 # macOS
