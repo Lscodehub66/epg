@@ -3,7 +3,7 @@ name: Update Guide
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "1 9 * * *"
 
 jobs:
   update-guide:
